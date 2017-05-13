@@ -15,7 +15,7 @@ View JMX metrics, and metadata and manage alerts on your Kafka (ZK, Schema Regis
     docker run --rm -it -p 8000:8000 \
                -e "KAFKA_LENSES_URL=http://kafka-rest-proxy-host:port" \
                -e "PROXY=true" \
-               landoop/kafka-topics-ui
+               landoop/kafka-metrics-ui
 ```
 
 **Config:** If you don't use our docker image, keep in mind that `Kafka-REST-Proxy`
@@ -28,10 +28,10 @@ then fall back to JSON, and finally fall back to Binary.
 ## Build from source
 
 ```
-    git clone https://github.com/Landoop/kafka-topics-ui.git
-    cd kafka-topics-ui
+    git clone https://github.com/Landoop/kafka-metrics-ui.git
+    cd kafka-metrics-ui
     npm install -g bower
-    npm install
+    bower install
     http-server .
 ```
 Web UI will be available at `http://localhost:8080`
@@ -60,48 +60,20 @@ If you use `nginx` to serve this ui, let angular manage routing with
 Use multiple Kafka Rest clusters in `env.js` :
 ```
 var clusters = [
-    {
-      NAME: "prod",
-      KAFKA_REST: "/api",
-      MAX_BYTES: "50000",
-      RECORD_POLL_TIMEOUT: "5000",
-      COLOR: "#141414", // Optional
-      DEBUG_LOGS_ENABLED: true
-    },
-    {
-      NAME: "dev",
-      KAFKA_REST: "localhost",
-      MAX_BYTES: "50000",
-      COLOR: "red",
-      RECORD_POLL_TIMEOUT: "5000",
-      DEBUG_LOGS_ENABLED: true
-    }
-  ];
+  {
+    NAME: "prod",
+    KAFKA_LENSES_URL: "http://kafka-lenses.demo.landoop.com/api",
+    DEBUG_LOGS_ENABLED: true
+  },
+  {
+    NAME: "dev",
+    KAFKA_LENSES_URL: "http://dev-kafka-lenses-host/api",
+    DEBUG_LOGS_ENABLED: true
+  }
+];
 
 ```
-* Use `MAX_BYTES` to set the default maximum amount of bytes to fetch from each topic.
-* Use `RECORD_POLL_TIMEOUT` to set the timeout in ms.
-* Use `COLOR` to set different header colors for each set up cluster.
 * Set `DEBUG_LOGS_ENABLED` to true to enable the debug logs.
-
-### CP Version support
-Latest release is for CP 3.2.0 and above.
-
-For versions older than CP 3.2.0 you will need kafka topics ui [version 0.8.3](https://github.com/Landoop/kafka-topics-ui/releases/tag/v0.8.3).
-You can also build it from source by running:
-```
-    git clone https://github.com/Landoop/kafka-topics-ui.git
-    cd kafka-topics-ui
-    git checkout tags/v0.8.3 -b v0.8.3
-    npm install -g bower
-    npm install
-    http-server .
-```
-
-
-
-## Changelog
-[Here](https://github.com/Landoop/kafka-topics-ui/wiki/Changelog)
 
 ## License
 

@@ -1,0 +1,90 @@
+<md-content style="padding:10px;" class="ng-scope" ng-repeat="brokerJMX in allBrokerJMX">
+
+    <p> <b>Broker - X </b></p>
+
+    <p style="padding: 10px 8px; line-height: 1.42857143; vertical-align: top; font-size: 17px;color: rgba(21, 31, 39, 0.9);">
+        Broker retains <code class="ng-binding">{{ brokerJMX.totalPartitions }}</code> partitions
+        across <code class="ng-binding">{{ brokerJMX.totalTopics }}</code> topics
+        and uses <code class="ng-binding">{{ brokerJMX.size | humanizeBytes }}</code> of disk space<br>
+        Broker at version : <code class="ng-binding">{{ brokerJMX.brokerVersion }}</code>
+    </p>
+
+    <table class="topics-table">
+        <thead>
+        <tr>
+            <th>Rates</th>
+            <th>Last 1 min</th>
+            <th>Last 5 min</th>
+            <th>Last 15 min</th>
+            <th>Average</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Messages in /sec</td>
+            <td>{{ brokerJMX.messagesInPerSec.oneMinuteRate | number:0 }}</td>
+            <td>{{ brokerJMX.messagesInPerSec.fiveMinuteRate | number:0 }}</td>
+            <td>{{ brokerJMX.messagesInPerSec.fifteenMinuteRate | number:0 }}</td>
+            <td>{{ brokerJMX.messagesInPerSec.meanRate | number:0 }}</td>
+            <td>{{ brokerJMX.messagesInPerSec.count | number:0 }}</td>
+        </tr>
+        <tr>
+            <td>Bytes in /sec</td>
+            <td>{{ brokerJMX.bytesInPerSec.oneMinuteRate | humanizeBytes }}</td>
+            <td>{{ brokerJMX.bytesInPerSec.fiveMinuteRate | humanizeBytes }}</td>
+            <td>{{ brokerJMX.bytesInPerSec.fifteenMinuteRate | humanizeBytes }}</td>
+            <td>{{ brokerJMX.bytesInPerSec.meanRate | humanizeBytes }}</td>
+            <td>{{ brokerJMX.bytesInPerSec.count | humanizeBytes }}</td>
+        <tr>
+            <td>Bytes out /sec</td>
+            <td>{{ brokerJMX.bytesOutPerSec.oneMinuteRate | humanizeBytes }}</td>
+            <td>{{ brokerJMX.bytesOutPerSec.fiveMinuteRate | humanizeBytes }}</td>
+            <td>{{ brokerJMX.bytesOutPerSec.fifteenMinuteRate | humanizeBytes }}</td>
+            <td>{{ brokerJMX.bytesOutPerSec.meanRate | humanizeBytes }}</td>
+            <td>{{ brokerJMX.bytesOutPerSec.count | humanizeBytes }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p style="padding: 10px 8px; line-height: 1.42857143; vertical-align: top; font-size: 17px;color: rgba(21, 31, 39, 0.9);">
+        At the current rate this broker is receiving <code>{{ brokerJMX.bytesInPerSec.oneMinuteRate * 60 * 60 * 24 |
+        humanizeBytes }}</code> per day and sending <code>{{ brokerJMX.bytesOutPerSec.oneMinuteRate * 60 * 60 * 24 |
+        humanizeBytes }}</code> per day
+    </p>
+
+    <!-- Section HEALTH-CHECKS across all brokers -->
+    <table class="topics-table2" style="float:right">
+        <thead>
+        <tr>
+            <th>Health checks</th>
+            <th>Under-replicated partitions</th>
+            <th>Offline partitions</th>
+            <th>Active Controllers</th>
+            <th>Kafka Process CPU</th>
+            <th>System CPU usage</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="brokerJMX in allBrokerJMX">
+            <td>Broker : 0</td>
+            <td>{{ brokerJMX.underReplicatedPartitions }}</td>
+            <td>{{ brokerJMX.offlinePartitions }}</td>
+            <td>{{ brokerJMX.activeControllers }}</td>
+            <td>{{ brokerJMX.oSystemMetrics.processCpuLoad * 100 | number:2 }} %</td>
+            <td>{{ brokerJMX.oSystemMetrics.systemCpuLoad * 100 | number:2 }} %</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--Debug-> topicJMX = {{ topicJMX }}-->
+
+</md-content>
+
+<!--bytesRejectedPerSec: MeterMetric,-->
+<!--failedFetchRequestsPerSec: MeterMetric,-->
+<!--failedProduceRequestsPerSec: MeterMetric,-->
+
+<br>
+<!--More info here : {{ brokerJMX.partitionTopicSize }} -->
+

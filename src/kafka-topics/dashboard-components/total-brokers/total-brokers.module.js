@@ -18,13 +18,14 @@ totalBrokersModule.factory('BrokersBackendFactory', function (HttpFactory) {
 });
 
 totalBrokersModule.controller('TotalBrokersCtrl', function ($scope,  $log, BrokersBackendFactory, env) {
-var endpoint = env.KAFKA_REST().trim()
-    BrokersBackendFactory.getBrokers(endpoint).then(
-      function success(brokers) {
-       $scope.totalBrokers = brokers.data.brokers.length;
-      },
-      function failure() {
-        $scope.connectionFailure = true;
-    });
+  $scope.totalBrokers = 1;
+// var endpoint = env.KAFKA_REST().trim()
+//     BrokersBackendFactory.getBrokers(endpoint).then(
+//       function success(brokers) {
+//        $scope.totalBrokers = brokers.data.brokers.length;
+//       },
+//       function failure() {
+//         $scope.connectionFailure = true;
+//     });
 
 });

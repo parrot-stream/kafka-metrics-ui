@@ -2,7 +2,7 @@
     <md-card-content>
         <h3 style="font-weight:300; color:red"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Missing Cluster Configuration</h3>
         <br>
-        In order to configure <code>kafka-topics-ui</code> you need to add <code>env.js</code> file in the root directory of the app.
+        In order to configure <code>kafka-metrics-ui</code> you need to add <code>env.js</code> file in the root directory of the app.
         <br>
         Example <b>env.js</b> structure:
       <pre>
@@ -11,17 +11,11 @@
             [
             {
             NAME:"prod",
-            KAFKA_REST : "prod.url.com",// "The Kafka Rest url"
-            // Sets the default maximum amount of bytes to fetch from each topic
-            MAX_BYTES: "?max_bytes=50000",
-            COLOR: "#141414" // Optional
+            KAFKA_LENSES_URL : "prod.url.com",// "The Kafka Rest url"
             },
             {
             NAME:"dev",
-            KAFKA_REST : "dev.url.com", "The Kafka Rest url"
-            MAX_BYTES: "?max_bytes=50000",
-
-            COLOR: "red" // Optional
+            KAFKA_LENSES_URL : "dev.url.com", "The Kafka Rest url"
             }
             ]
         </code>

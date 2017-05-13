@@ -14,9 +14,7 @@ angular.
             getSelectedCluster : function() { return selectedCluster; },
             getAllClusters : function() { return allClusters },
             isMissingEnvJS : function() { return missingEnvJS},
-            KAFKA_REST : function () { return selectedCluster.KAFKA_REST.trim(); },
-            RECORD_POLL_TIMEOUT: function () { return selectedCluster.RECORD_POLL_TIMEOUT.trim(); },
-            MAX_BYTES : function () { return selectedCluster.MAX_BYTES.trim(); },
+            KAFKA_LENSES_URL: function () { return selectedCluster.KAFKA_LENSES_URL.trim(); },
             DEBUG_LOGS_ENABLED : function () { return selectedCluster.DEBUG_LOGS_ENABLED.trim(); }
           };
 

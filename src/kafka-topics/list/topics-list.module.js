@@ -123,42 +123,42 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
   function getLeftListTopics() {
     $scope.selectedTopics = [];
     $scope.topics = [];
-    TopicsListFactory.getTopics($scope.cluster.KAFKA_REST.trim()).then(function (allData){
-        var topics = [];
-        angular.forEach(allData.data, function(topic, key) {
-            TopicsListFactory.getTopicDetails(topic, $scope.cluster.KAFKA_REST.trim()).then(function(res){
-                var configsCounter = 0;
-                angular.forEach(res.data.configs, function(value, key) { configsCounter++;});
-                var topicImproved = {
-                    topicName : res.data.name,
-                    partitions : res.data.partitions.length,
-                    replication : res.data.partitions[0].replicas.length,
-                    customConfig : configsCounter,
-                    isControlTopic : checkIsControlTopic(res.data.name)
-                }
-
-                topics.push(topicImproved);
-               if (topics.length == allData.data.length) {
-                  $scope.topics = topics;
-                  $scope.selectedTopics = topics.filter(function(el) {return el.isControlTopic == $scope.displayingControlTopics});
-                  console.log('Total topics fetched:', allData.data.length)
-                  console.log('Length of improved topic array:', topics.length)
-                  console.log('Selected topics(listed):', $scope.selectedTopics.length)
-
-                  $scope.topicsIndex = arrayObjectIndexOf($scope.selectedTopics, $routeParams.topicName, 'topicName' ) + 1;
-                  $scope.topicsPage = Math.ceil($scope.topicsIndex / $scope.topicsPerPage);
-
-                  if ($scope.topicsPage < 1) {
-                    $scope.topicsPage = 1
-                  }
-               }
-            })
-
-        })
-
-        //$scope.selectTopicList(true);
-
-    })
+    // TopicsListFactory.getTopics($scope.cluster.KAFKA_REST.trim()).then(function (allData){
+    //     var topics = [];
+    //     angular.forEach(allData.data, function(topic, key) {
+    //         TopicsListFactory.getTopicDetails(topic, $scope.cluster.KAFKA_REST.trim()).then(function(res){
+    //             var configsCounter = 0;
+    //             angular.forEach(res.data.configs, function(value, key) { configsCounter++;});
+    //             var topicImproved = {
+    //                 topicName : res.data.name,
+    //                 partitions : res.data.partitions.length,
+    //                 replication : res.data.partitions[0].replicas.length,
+    //                 customConfig : configsCounter,
+    //                 isControlTopic : checkIsControlTopic(res.data.name)
+    //             }
+    //
+    //             topics.push(topicImproved);
+    //            if (topics.length == allData.data.length) {
+    //               $scope.topics = topics;
+    //               $scope.selectedTopics = topics.filter(function(el) {return el.isControlTopic == $scope.displayingControlTopics});
+    //               console.log('Total topics fetched:', allData.data.length)
+    //               console.log('Length of improved topic array:', topics.length)
+    //               console.log('Selected topics(listed):', $scope.selectedTopics.length)
+    //
+    //               $scope.topicsIndex = arrayObjectIndexOf($scope.selectedTopics, $routeParams.topicName, 'topicName' ) + 1;
+    //               $scope.topicsPage = Math.ceil($scope.topicsIndex / $scope.topicsPerPage);
+    //
+    //               if ($scope.topicsPage < 1) {
+    //                 $scope.topicsPage = 1
+    //               }
+    //            }
+    //         })
+    //
+    //     })
+    //
+    //     //$scope.selectTopicList(true);
+    //
+    // })
   }
 
   function sortTopics(type) {
@@ -201,59 +201,11 @@ function arrayObjectIndexOf(myArray, searchTerm, property) {
 
 
   function loadSchemas(){
-    var uuid=consumerFactory.genUUID();
-    consumerFactory.createConsumer('json', '_schemas', uuid).then( function (response) {
-      if (response.status == 409 || response.status == 200) {
-
-        var consumer = {group :'kafka_topics_ui_json_' + uuid, instance: 'kafka-topics-ui-json' };
-           consumerFactory.getDataFromBeginning(consumer,'json', '_schemas').then(function (allSchemas) {
-             $rootScope.schemas = allSchemas;
-             schemas = allSchemas
-             return schemas
-           })
-        if (response.status == 409) {
-            var msg = response.data.message;
-            msg = "Conflict 409. " + msg;
-            $log.warn(msg)
-         }
-       } else {
-        $log.warn(response.data.message)
-       }
-    })
   }
 
 
   function getDataType (topicName) {
-    var dataType = "...";
-    var dataType_key;
-    var dataType_value;
-    // Check if we know the topic data type a priory
-    if (KNOWN_TOPICS.JSON_TOPICS && KNOWN_TOPICS.JSON_TOPICS.indexOf(topicName) > -1) {
-      dataType = "json";
-    } else if (KNOWN_TOPICS.BINARY_TOPICS && KNOWN_TOPICS.BINARY_TOPICS.indexOf(topicName.substring(0, 24)) > -1) {
-      dataType = "binary";
-    } else {
-      // If topicDetails are not available wait
-          if (schemas) {
-          angular.forEach(angular.fromJson(schemas.data), function (schema) {
-            if ((schema.value != null) && (schema.value.subject != null) && (schema.value.subject == topicName + "-value")) {
-              //$log.info("FOUND YOU !! " + topicName);
-              dataType_value = "avro";
-            }
-            if ((schema.value != null) && (schema.value.subject != null) && (schema.value.subject == topicName + "-key")) {
-              //$log.info("FOUND YOU !! " + topicName);
-              dataType_key = "avro";
-            }
-          });
-          if (dataType_value=="avro" && dataType_key=="avro") {
-            dataType="avro";
-          }
-}
-    }
-    if (dataType == "") {
-      $log.warn("Could not find the message type of topic [" + topicName + "]");
-    }
-    return dataType;
+    return "a";
   }
 
    $scope.getDataType = function (topicName) {

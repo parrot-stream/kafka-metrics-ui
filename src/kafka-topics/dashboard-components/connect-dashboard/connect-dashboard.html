@@ -1,0 +1,51 @@
+<!--<md-content style="padding:10px;" class="ng-scope" ng-repeat="brokerJMX in allBrokerJMX">-->
+<md-content style="padding:10px;" class="ng-scope">
+
+    <p> <b>Connect - Z </b></p>
+
+    <pre>Connect Process CPU   : {{ allConnectJMX.oSystemMetrics.processCpuLoad * 100 | number:2 }} %</pre>
+    <pre>System CPU usage      : {{ allConnectJMX.oSystemMetrics.systemCpuLoad * 100 | number:2 }} %</pre>
+    <pre>Available Processors  : {{ allConnectJMX.oSystemMetrics.availableProcessors }}</pre>
+    <pre>Architecture          : {{ allConnectJMX.oSystemMetrics.architecture }}</pre>
+    <pre>Open File Descriptors : {{ allConnectJMX.oSystemMetrics.openFileDescriptorCount }}</pre>
+    <pre>Max File Descriptors  : {{ allConnectJMX.oSystemMetrics.maxFileDescriptorCount }}</pre>
+    <pre>Version               : {{ allConnectJMX.version }}</pre>
+    <pre>Uptime                : {{ allConnectJMX.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}</pre>
+
+    <br>
+    <pre>Assigned Connectors   : {{ allConnectJMX.connectCoordinator.assignedConnectors }}</pre>
+    <pre>Assigned Tasks        : {{ allConnectJMX.connectCoordinator.assignedTasks }}</pre>
+    <br>
+
+    <!-- Section HEALTH-CHECKS across all (?) Zookeepers -->
+    <table class="topics-table" style="width:700px">
+        <thead>
+        <tr>
+            <th>Topic</th>
+            <th>Record Send Rate</th>
+            <th>Byte Rate</th>
+            <th>Bytes Per Record</th>
+            <th>Compression Rate</th>
+            <!--
+            "recordErrorRate": 0,
+            "recordRetryRate": 0
+            -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="t in allConnectJMX.producerTopicMetrics">
+            <td>{{ t.topic }}</td>
+            <td>{{ t.recordSendRate | number:0 }}</td>
+            <td>{{ t.byteRate | humanizeBytes }}</td>
+            <td>{{ t.avgBytesPerRecord | humanizeBytes }}</td>
+            <td>{{ t.compressionRate | number:2 }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--Debug-> topicJMX = {{ allConnectJMX }}-->
+
+</md-content>
+
+<br>
+

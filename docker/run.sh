@@ -20,16 +20,14 @@ KAFKA_LENSES_URL=/api/kafka-rest-proxy
 fi
 
 if [[ -z "$KAFKA_LENSES_URL" ]]; then
-    echo "Kafka REST Proxy URL was not set via KAFKA_LENSES_URL environment variable."
+    echo "Kafka Lenses Proxy URL was not set via KAFKA_LENSES_URL environment variable."
 else
-    echo "Kafka REST Proxy URL to $KAFKA_LENSES_URL."
+    echo "Kafka Lenses URL to $KAFKA_LENSES_URL."
     cat <<EOF >kafka-topics-ui/env.js
 var clusters = [
    {
      NAME:"default",
-     KAFKA_REST: "$KAFKA_LENSES_URL",
-     MAX_BYTES: "50000",
-     RECORD_POLL_TIMEOUT: "2000",
+     KAFKA_LENSES_URL: "$KAFKA_LENSES_URL",
      DEBUG_LOGS_ENABLED: true
    }
 ]

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kafka Topics UI - Browse Kafka Data</title>
+  <title>Kafka Metrics UI - View your Kafka Infrastructure</title>
   <meta charset=utf-8/>
   <meta name="viewport" content="width=device-width">
   <meta name="description" content="Kafka Topics UI">
-  <meta name="keywords" content="kafka,schema registry,topics,kafka-topic,kafka-rest,kafka-rest-proxy,kafka management,avro">
+  <meta name="keywords" content="kafka, metrics, jmx, monitoring, alerting, schema registry,topics,kafka-topic,kafka-rest,kafka-rest-proxy,kafka management,avro">
   <meta name="author" content="Landoop Team">
   <link rel="shortcut icon" href="src/assets/icons/favicon.png">
   <link rel="stylesheet" media="screen" href="bower_components/handsontable/dist/handsontable.full.css">
@@ -27,7 +27,7 @@
   <div layout="row" layout-xs="column">
     <div class="top-left-part">
       <h5 style="margin: 0px 0 0 18px;line-height: 48px;">
-        <a href="{{cluster ? '#/cluster/'+cluster.NAME : '#/'}}" style="color:#fff; text-decoration:none; font-weight: bold;">KAFKA TOPICS</a>
+        <a href="{{cluster ? '#/cluster/'+cluster.NAME : '#/'}}" style="color:#fff; text-decoration:none; font-weight: bold;">KAFKA METRICS</a>
       </h5>
     </div>
     <span flex></span>
@@ -99,6 +99,8 @@
 
 <script src="src/kafka-topics/list/topics-list.module.js"></script>
 <script src="src/kafka-topics/dashboard-components/total-brokers/total-brokers.module.js"></script>
+<script src="src/kafka-topics/dashboard-components/total-zookeepers/total-zookeepers.module.js"></script>
+<script src="src/kafka-topics/dashboard-components/total-connect/total-connect.module.js"></script>
 <script src="src/kafka-topics/dashboard-components/total-topics/total-topics.module.js"></script>
 <script src="src/kafka-topics/view/templates/data/flatten/data-flatten-view.module.js"></script>
 <script src="src/kafka-topics/view/templates/data/tree/data-tree-view.module.js"></script>
