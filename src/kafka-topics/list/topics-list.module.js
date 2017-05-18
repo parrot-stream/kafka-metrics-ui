@@ -31,10 +31,8 @@ topicsListModule.factory('templates', function() {
 topicsListModule.factory('TopicsListFactory', function (HttpFactory) {
     return {
         getTopics: function (endpoint) {
-           return HttpFactory.req('GET', endpoint + '/topics');
         },
         getTopicDetails: function(topicName, endpoint){
-           return HttpFactory.req('GET', endpoint + '/topics' + '/' + topicName )
         },
         sortByKey: function (array, key, reverse) {
           return sortByKey(array, key, reverse);
@@ -88,10 +86,6 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
       loadSchemas()
     } },
    true);
-
-  $scope.shortenControlCenterName = function (topic) {
-    return shortenControlCenterName(topic);
-  }
 
   $scope.query = { order: '-totalMessages', limit: 100, page: 1 };
 
@@ -178,27 +172,6 @@ function arrayObjectIndexOf(myArray, searchTerm, property) {
     }
     return -1;
 }
-
-  function shortenControlCenterName(topic) {
-      if (topic.isControlTopic) {
-        return topic.topicName
-          .replace('_confluent-controlcenter-0-', '...')
-          // .replace('aggregate-topic-partition', 'aggregate-topic')
-          .replace('MonitoringMessageAggregatorWindows', 'monitor-msg')
-          .replace('connect-configs', 'monitor-msg')
-          .replace('aggregatedTopicPartitionTableWindows', 'aggregate-window')
-          .replace('monitoring-aggregate-rekey', 'monitor-rekey')
-          .replace('MonitoringStream', 'monitor-stream')
-          .replace('MonitoringVerifierStore', 'monitor-verifier')
-          .replace('...Group', '...group')
-          .replace('FIFTEEN_SECONDS', '15sec')
-          .replace('ONE_HOUR', '1hour')
-          .replace('ONE_WEEK', '1week');
-      } else {
-        return topic.topicName;
-      }
-  }
-
 
   function loadSchemas(){
   }

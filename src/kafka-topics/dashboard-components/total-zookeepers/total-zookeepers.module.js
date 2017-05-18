@@ -10,11 +10,6 @@ totalZookeepersModule.directive('totalZookeepers', function (templates) {
 
 totalZookeepersModule.factory('ZookeepersBackendFactory', function (HttpFactory) {
   return {
-    /*
-     getBrokers: function (endpoint) {
-     return HttpFactory.req('GET', endpoint + '/brokers');
-     },
-     */
     getZookeepersJMX: function (endpoint) {
       return HttpFactory.req('GET', endpoint + '/jmx/zookeeper');
     }
@@ -24,26 +19,14 @@ totalZookeepersModule.factory('ZookeepersBackendFactory', function (HttpFactory)
 totalZookeepersModule.controller('TotalZookeepersCtrl', function ($scope, $log, $location, ZookeepersBackendFactory) {
   $scope.showZookeepersDashboard = function () {
     var newPath = "cluster/" + $scope.cluster.NAME + "/zookeepers";
-    console.log("showZookeepersDashboard -> " + newPath);
     $location.path(newPath, true);
   };
 
-  // ZookeepersBackendFactory.getBrokers($scope.cluster.KAFKA_REST).then(
-  //   function success(brokers) {
-  //$scope.totalBrokers = brokers.brokers.length;
   ZookeepersBackendFactory.getZookeepersJMX($scope.cluster.KAFKA_LENSES_URL).then(
     function success(allZookeeperJMX) {
-      console.log("1");
-      console.log(allZookeeperJMX);
       $scope.allZookeeperJMX = allZookeeperJMX;
     },
     function failure() {
-      console.log("2");
       $scope.connectionFailure = true;
     });
-  // },
-  // function failure() {
-  //   $scope.connectionFailure = true;
-  // });
-
 });
