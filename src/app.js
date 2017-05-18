@@ -22,7 +22,8 @@ var angularAPP = angular.module('angularAPP', [
   'base64',
   'totalBrokers',
   'totalZookeepers',
-  'totalConnect'
+  'totalConnect',
+  'angular-humanize-duration'
 ]);
 
 //angularAPP.controller('HeaderCtrl', function (env, $rootScope, $scope, $log, $location, $route) { });
@@ -83,6 +84,18 @@ $locationProvider.html5Mode();
     .when('/cluster/:cluster', {
       templateUrl: 'src/kafka-topics/home/home.html',
        controller: 'HomeCtrl'
+    })
+    .when('/cluster/:cluster/zookeepers', {
+      templateUrl: 'src/kafka-topics/dashboard-components/zookeepers-dashboard/zookeepers-dashboard.html',
+      controller: 'TotalZookeepersCtrl'
+    })
+    .when('/cluster/:cluster/brokers', {
+      templateUrl: 'src/kafka-topics/dashboard-components/brokers-dashboard/brokers-dashboard.html',
+      controller: 'TotalBrokersCtrl'
+    })
+    .when('/cluster/:cluster/connect', {
+      templateUrl: 'src/kafka-topics/dashboard-components/connect-dashboard/connect-dashboard.html',
+      controller: 'TotalConnectCtrl'
     })
     .when('/cluster/:cluster/create-topic', {
       templateUrl: 'src/kafka-topics/new/new-topic.html',
@@ -146,15 +159,28 @@ angularAPP.config(function ($mdThemingProvider) {
 });
 
 
-angularAPP.filter('humanize', function(){
-    return function humanize(number) {
-        if(number < 1000) {
-            return number;
-        }
-        var si = ['K', 'M', 'G', 'T', 'P', 'H'];
-        var exp = Math.floor(Math.log(number) / Math.log(1000));
-        var result = number / Math.pow(1000, exp);
-        result = (result % 1 > (1 / Math.pow(1000, exp - 1))) ? result.toFixed(2) : result.toFixed(0);
-        return result + si[exp - 1];
-    };
+angularAPP.filter('humanize', function () {
+  return function humanize(number) {
+    if (number < 1000) {
+      return number;
+    }
+    var si = [' K', ' M', ' G', ' Tera', ' Peta', ' Hexa'];
+    var exp = Math.floor(Math.log(number) / Math.log(1000));
+    var result = number / Math.pow(1000, exp);
+    result = (result % 1 > (1 / Math.pow(1000, exp - 1))) ? result.toFixed(2) : result.toFixed(0);
+    return result + si[exp - 1];
+  };
+});
+
+angularAPP.filter('humanizeBytes', function () {
+  return function humanize(number) {
+    if (number < 1000) {
+      return Math.floor(number * 10) / 10 + ' Bytes';
+    }
+    var si = [' KBytes', ' MBytes', ' GBytes', ' TBytes', ' PetaBytes', ' HexaBytes'];
+    var exp = Math.floor(Math.log(number) / Math.log(1000));
+    var result = number / Math.pow(1000, exp);
+    result = (result % 1 > (1 / Math.pow(1000, exp - 1))) ? result.toFixed(2) : result.toFixed(0);
+    return result + si[exp - 1];
+  };
 });
