@@ -1,7 +1,6 @@
-<md-content style="padding:10px;" class="ng-scope" ng-repeat="brokerJMX in allBrokerJMX">
+<md-content style="padding:10px;" class="ng-scope" ng-repeat="brokerJMX in allBrokerJMX.data">
 
     <p> <b>Broker - X </b></p>
-
     <p style="padding: 10px 8px; line-height: 1.42857143; vertical-align: top; font-size: 17px;color: rgba(21, 31, 39, 0.9);">
         Broker retains <code class="ng-binding">{{ brokerJMX.totalPartitions }}</code> partitions
         across <code class="ng-binding">{{ brokerJMX.totalTopics }}</code> topics

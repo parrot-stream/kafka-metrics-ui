@@ -2,26 +2,26 @@
 
     <p> <b>Zookeeper - Y </b></p>
 
-    <pre>Zookeeper Process CPU : {{ allZookeeperJMX.oSystemMetrics.processCpuLoad * 100 | number:2 }} %</pre>
-    <pre>System CPU usage      : {{ allZookeeperJMX.oSystemMetrics.systemCpuLoad * 100 | number:2 }} %</pre>
-    <pre>Available Processors  : {{ allZookeeperJMX.oSystemMetrics.availableProcessors }}</pre>
-    <pre>Architecture          : {{ allZookeeperJMX.oSystemMetrics.architecture }}</pre>
-    <pre>Open File Descriptors : {{ allZookeeperJMX.oSystemMetrics.openFileDescriptorCount }}</pre>
-    <pre>Max File Descriptors  : {{ allZookeeperJMX.oSystemMetrics.maxFileDescriptorCount }}</pre>
-    <pre>Packet Sent           : {{ allZookeeperJMX.packetsSent }}</pre>
-    <pre>Version               : {{ allZookeeperJMX.version }}</pre>
-    <pre>Uptime                : {{ allZookeeperJMX.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}</pre>
+    <pre>Zookeeper Process CPU : {{ allZookeeperJMX.data.oSystemMetrics.processCpuLoad * 100 | number:2 }} %</pre>
+    <pre>System CPU usage      : {{ allZookeeperJMX.data.oSystemMetrics.systemCpuLoad * 100 | number:2 }} %</pre>
+    <pre>Available Processors  : {{ allZookeeperJMX.data.oSystemMetrics.availableProcessors }}</pre>
+    <pre>Architecture          : {{ allZookeeperJMX.data.oSystemMetrics.architecture }}</pre>
+    <pre>Open File Descriptors : {{ allZookeeperJMX.data.oSystemMetrics.openFileDescriptorCount }}</pre>
+    <pre>Max File Descriptors  : {{ allZookeeperJMX.data.oSystemMetrics.maxFileDescriptorCount }}</pre>
+    <pre>Packet Sent           : {{ allZookeeperJMX.data.packetsSent }}</pre>
+    <pre>Version               : {{ allZookeeperJMX.data.version }}</pre>
+    <pre>Uptime                : {{ allZookeeperJMX.data.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}</pre>
     <br>
-    <pre>Last Zxid             : {{ allZookeeperJMX.inMemoryDataTree.lastZxid }}</pre>
-    <pre>Node Count            : {{ allZookeeperJMX.inMemoryDataTree.nodeCount }}</pre>
-    <pre>Watch Count           : {{ allZookeeperJMX.inMemoryDataTree.watchCount }}</pre>
-    <pre>Alive Connections     : {{ allZookeeperJMX.numAliveConnections }}</pre>
-    <pre>Max Request Latency   : {{ allZookeeperJMX.maxRequestLatency }}</pre>
-    <pre>Client Port           : {{ allZookeeperJMX.clientPort }}</pre>
+    <pre>Last Zxid             : {{ allZookeeperJMX.data.inMemoryDataTree.lastZxid }}</pre>
+    <pre>Node Count            : {{ allZookeeperJMX.data.inMemoryDataTree.nodeCount }}</pre>
+    <pre>Watch Count           : {{ allZookeeperJMX.data.inMemoryDataTree.watchCount }}</pre>
+    <pre>Alive Connections     : {{ allZookeeperJMX.data.numAliveConnections }}</pre>
+    <pre>Max Request Latency   : {{ allZookeeperJMX.data.maxRequestLatency }}</pre>
+    <pre>Client Port           : {{ allZookeeperJMX.data.clientPort }}</pre>
     <br>
-    <pre>Packets sent          : {{ allZookeeperJMX.packetsSent }}</pre>
-    <pre>Packets received      : {{ allZookeeperJMX.packetsReceived }}</pre>
-    <pre>Tick time             : {{ allZookeeperJMX.tickTime }}</pre>
+    <pre>Packets sent          : {{ allZookeeperJMX.data.packetsSent }}</pre>
+    <pre>Packets received      : {{ allZookeeperJMX.data.packetsReceived }}</pre>
+    <pre>Tick time             : {{ allZookeeperJMX.data.tickTime }}</pre>
 
 
 

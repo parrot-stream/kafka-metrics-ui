@@ -23,14 +23,15 @@ totalZookeepersModule.factory('ZookeepersBackendFactory', function (HttpFactory)
 
 totalZookeepersModule.controller('TotalZookeepersCtrl', function ($scope, $log, $location, ZookeepersBackendFactory) {
   $scope.showZookeepersDashboard = function () {
-    console.log("showZookeepersDashboard");
-    $location.path("cluster/" + $scope.cluster.NAME + "/zookeepers", true);
+    var newPath = "cluster/" + $scope.cluster.NAME + "/zookeepers";
+    console.log("showZookeepersDashboard -> " + newPath);
+    $location.path(newPath, true);
   };
 
   // ZookeepersBackendFactory.getBrokers($scope.cluster.KAFKA_REST).then(
   //   function success(brokers) {
   //$scope.totalBrokers = brokers.brokers.length;
-  ZookeepersBackendFactory.getZookeepersJMX($scope.cluster.KAFKA_BACKEND).then(
+  ZookeepersBackendFactory.getZookeepersJMX($scope.cluster.KAFKA_LENSES_URL).then(
     function success(allZookeeperJMX) {
       console.log("1");
       console.log(allZookeeperJMX);

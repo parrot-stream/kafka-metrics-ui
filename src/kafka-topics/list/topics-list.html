@@ -3,13 +3,9 @@
   <md-toolbar class="md-hue-2">
     <div class="md-toolbar-tools">
       <h3>
-        <span><b>{{selectedTopics.length}}</b> TOPICS </span>
+        <span><b>1{{selectedTopics.length}}</b> Services </span>
       </h3>
       <span flex></span>
-      <md-switch style="font-size:14px"  class="md-icon-button" ng-model='displayingControlTopics' ng-change="selectTopicList(displayingControlTopics)" aria-label="Show system topics">
-        <div ng-if="displayingControlTopics"><b>System Topics</b></div>
-        <div ng-if="!displayingControlTopics"><b>System Topics</b></div>
-      </md-switch>
     </div>
   </md-toolbar>
 
@@ -17,7 +13,7 @@
     <div layout="column">
 
       <md-input-container class="md-block" style="margin-bottom:0;">
-        <label>Search topics:</label>
+        <label>Search services:</label>
         <input ng-model="search" placeholder=" ">
       </md-input-container>
 
