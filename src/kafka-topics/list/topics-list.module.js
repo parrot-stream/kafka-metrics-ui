@@ -64,7 +64,7 @@ topicsListModule.factory('shortList', function (HttpFactory) {
   }
 })
 
-topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, $rootScope, $routeParams, $cookies, $filter, $log, $q, $http, TopicsListFactory, shortList, consumerFactory) {
+topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, $rootScope, $routeParams, $cookies, $filter, $log, $q, $http, TopicsListFactory, shortList) {
   $rootScope.showList = true;
 
   $scope.topic = $routeParams.topicName

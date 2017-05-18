@@ -13,11 +13,11 @@
           z1 --- z2
           z2 --- z3
         </div>
-        {{allZookeeperJMX}}
-        <div ng-repeat="zookeeperJMX in allZookeeperJMX">
-          Uptime : {{ zookeeperJMX.data.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}<br><br>
-          <pre>Alive connections : {{ zookeeperJMX.data.numAliveConnections }}</pre>
-        </div>
+        <!--{{allZookeeperJMX}}-->
+        <div ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+          Uptime : {{ zookeeperJMX.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}<br><br>
+          <!--<pre>Alive connections : {{ zookeeperJMX.data.numAliveConnections }}</pre>-->
+        <!--</div>-->
         <div>
         </div>
       </div>

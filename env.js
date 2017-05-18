@@ -1,4 +1,4 @@
-// Replace with the URL where a Kafka REST service is listening
+// Replace with the URL where a Kafka Lenses is listening
 var clusters = [
   {
     NAME: "Preview",
