@@ -24,20 +24,20 @@ topicsListModule.directive('topicsList', function(templates) {
 topicsListModule.factory('templates', function() {
   return {
     compact: 'src/kafka-topics/list/compact-topics-list.html',
-    home:  'src/kafka-topics/list/topics-list.html',
+    home:  'src/kafka-topics/list/topics-list.html'
   };
 });
 
 topicsListModule.factory('TopicsListFactory', function (HttpFactory) {
     return {
-        getTopics: function (endpoint) {
+      getTopics: function (endpoint) {
         },
         getTopicDetails: function(topicName, endpoint){
         },
         sortByKey: function (array, key, reverse) {
           return sortByKey(array, key, reverse);
         }
-    }
+    };
     function sortByKey(array, key, reverse) {
         return array.sort(function (a, b) {
           var x = a[key];
@@ -52,7 +52,7 @@ topicsListModule.factory('shortList', function (HttpFactory) {
     sortByKey: function (array, key, reverse) {
     return sortByKey(array, key, reverse);
     }
-  }
+  };
   function sortByKey(array, key, reverse) {
     return array.sort(function (a, b) {
       var x = a[key];
@@ -60,12 +60,12 @@ topicsListModule.factory('shortList', function (HttpFactory) {
       return ((x < y) ? -1 * reverse : ((x > y) ? 1 * reverse : 0));
     });
   }
-})
+});
 
-topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, $rootScope, $routeParams, $cookies, $filter, $log, $q, $http, TopicsListFactory, shortList) {
+topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, $rootScope, $routeParams, $cookies, $filter, $log, $q, $http, TopicsListFactory, ZookeepersBackendFactory, shortList, env) {
   $rootScope.showList = true;
 
-  $scope.topic = $routeParams.topicName
+  $scope.topic = $routeParams.topicName;
 
 
   var schemas;
@@ -73,7 +73,7 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
   $scope.$watch(
     function () { return $routeParams.topicName },
     function () { if(angular.isDefined($routeParams.topicName)) {
-      $scope.topicName = $routeParams.topicName
+      $scope.topicName = $routeParams.topicName;
       $scope.displayingControlTopics = checkIsControlTopic($scope.topicName);
     }
  },
@@ -81,11 +81,21 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
 
   $scope.$watch(
     function () { return $scope.cluster; },
-    function () { if(typeof $scope.cluster == 'object'){
+    function () { if(typeof $scope.cluster === 'object'){
       getLeftListTopics();
       loadSchemas()
     } },
    true);
+
+  ZookeepersBackendFactory.getZookeepersJMX(env.KAFKA_LENSES_URL()).then(
+    function success(allZookeeperJMX) {
+      $scope.allZookeeperJMX = allZookeeperJMX;
+      $scope.htmlCode = "<pre>Zookeeper Process CPU : " + ZookeepersBackendFactory.print20(allZookeeperJMX.data[0].osMetrics.processCpuLoad * 100) + " %</pre>";
+    },
+    function failure() {
+      $scope.connectionFailure = true;
+    });
+
 
   $scope.query = { order: '-totalMessages', limit: 100, page: 1 };
 
@@ -95,24 +105,23 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
   };
 
   $scope.totalMessages = function (topic) {
-    if(topic.totalMessages == 0) return '0';
+    if(topic.totalMessages === 0) return '0';
     var sizes = ['', 'K', 'M', 'B', 'T', 'Quan', 'Quin'];
     var i = +Math.floor(Math.log(topic.totalMessages) / Math.log(1000));
     return (topic.totalMessages / Math.pow(1000, i)).toFixed(i ? 1 : 0) + sizes[i];
-  }
+  };
 
   $scope.selectTopicList = function (displayingControlTopics) {
-    $scope.selectedTopics = $scope.topics.filter(function(el) {return el.isControlTopic == $scope.displayingControlTopics})
-  }
-
+    $scope.selectedTopics = $scope.topics.filter(function(el) {return el.isControlTopic === $scope.displayingControlTopics})
+  };
 
   var itemsPerPage = (window.innerHeight - 280) / 48;
   Math.floor(itemsPerPage) < 3 ? $scope.topicsPerPage =3 : $scope.topicsPerPage = Math.floor(itemsPerPage);
 
   $scope.listClick = function (topicName, isControlTopic) {
-    var urlType = (isControlTopic == true) ? 'c' : 'n';
+    var urlType = (isControlTopic === true) ? 'c' : 'n';
     $location.path("cluster/" + $scope.cluster.NAME + "/topic/" + urlType + "/" + topicName, true);
-  }
+  };
 
   function getLeftListTopics() {
     $scope.selectedTopics = [];
@@ -157,7 +166,7 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
 
   function sortTopics(type) {
       var reverse = 1;
-      if (type.indexOf('-') == 0) {
+      if (type.indexOf('-') === 0) {
         // remove the - symbol
         type = type.substring(1, type.length);
         reverse = -1;

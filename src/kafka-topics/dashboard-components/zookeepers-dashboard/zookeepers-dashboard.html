@@ -1,94 +1,199 @@
-<md-content style="padding:10px;" class="ng-scope">
+<div layout="row" flex style="background:rgba(158, 158, 158, 0.2); margin-top:15px; margin-right:15px;">
+  <div flex ng-click="setMenuSelection('infrastructure', cluster)"
+       ng-class="{'selectedListItem': selectedMenuItem == 'infrastructure'}"
+       style="min-height:20px; padding:10px; text-align:center; font-size:14px;">
+    <i class="fa fa-table" aria-hidden="true" style="margin-right:5px;"></i>Infrastructure
+  </div>
+  <div flex ng-click="setMenuSelection('data', cluster)" ng-class="{ 'selectedListItem': selectedMenuItem == 'data' }"
+       style="min-height:20px; padding:10px; text-align:center;font-size:14px;">
+    <i class="fa fa-table" aria-hidden="true" style="margin-right:5px;"></i>Data
+    <span class="labelTypeSm" ng-if="topic.partitions.length > 0"> {{topic.partitions.length}} </span>
+  </div>
+  <div flex ng-click="setMenuSelection('alerts', cluster)"
+       ng-class="{ 'selectedListItem': selectedMenuItem == 'alerts' }"
+       style="min-height:20px; padding:10px; text-align:center;font-size:14px;">
+    <i class="fa fa-wrench" aria-hidden="true" style="margin-right:5px;"></i>Rules / Alerts
+    <span class="labelTypeSm" ng-if="topic.configs.length > 0"> {{topic.configs.length}} </span>
+  </div>
+</div>
+
+
+<md-content ng-show="selectedMenuItem == 'infrastructure'" style="padding-left:15px">
 
   <h3>Zookeepers</h3>
 
+  <!-- View 1 -->
+  <div ng-bind-html="htmlCode | sanitize"></div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <!-- View 2 -->
   <table class="topics-table2" style="">
     <thead>
     <tr>
       <th></th>
-      <th ng-repeat="zookeeperJMX in allZookeeperJMX.data"><center>{{ zookeeperJMX.replicaZK.name }}</center></th>
+      <th ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <center>{{ zookeeperJMX.replicaZK.name }}</center>
+      </th>
     </tr>
     </thead>
     <tbody style="background-color: white;">
     <tr>
-      <td><pre>Zookeeper Process CPU</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.osMetrics.processCpuLoad * 100 | number:2 }} %</center></pre></td>
+      <td>
+        <pre>Zookeeper Process CPU</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.osMetrics.processCpuLoad * 100 | number:2 }} %</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>System CPU usage</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.osMetrics.systemCpuLoad * 100 | number:2 }} %</center></pre></td>
+      <td>
+        <pre>System CPU usage</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.osMetrics.systemCpuLoad * 100 | number:2 }} %</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Available Processors</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.osMetrics.availableProcessors }}</center></pre></td>
+      <td>
+        <pre>Available Processors</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.osMetrics.availableProcessors }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Architecture</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.osMetrics.architecture }}</center></pre></td>
+      <td>
+        <pre>Architecture</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.osMetrics.architecture }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Open File Descriptors</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.osMetrics.openFileDescriptorCount }}</center></pre></td>
+      <td>
+        <pre>Open File Descriptors</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.osMetrics.openFileDescriptorCount }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Max File Descriptors</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.osMetrics.maxFileDescriptorCount }}</center></pre></td>
+      <td>
+        <pre>Max File Descriptors</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.osMetrics.maxFileDescriptorCount }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Packet Sent</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.commonZK.packetsSent }}</center></pre></td>
+      <td>
+        <pre>Packet Sent</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.commonZK.packetsSent }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Version</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.commonZK.version.substring(0,18) }}</center></pre></td>
+      <td>
+        <pre>Version</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.commonZK.version.substring(0,18) }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Uptime</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}</center></pre></td>
-    </tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr>
-      <td><pre>Last Zxid</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.inMemory.lastZxid }}</center></pre></td>
-    </tr>
-    <tr>
-      <td><pre>Node Count</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.inMemory.nodeCount }}</center></pre></td>
+      <td>
+        <pre>Uptime</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Watch Count</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.inMemory.watchCount }}</center></pre></td>
-    </tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr>
-      <td><pre>Alive Connections</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.commonZK.numAliveConnections }}</center></pre></td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
-      <td><pre>Max Request Latency</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.commonZK.maxRequestLatency }}</center></pre></td>
+      <td>
+        <pre>Last Zxid</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.inMemory.lastZxid }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Client Port</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.commonZK.clientPort }}</center></pre></td>
-    </tr>
-    <tr><td>&nbsp;</td></tr>
-    <tr>
-      <td><pre>Packets sent</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.commonZK.packetsSent }}</center></pre></td>
-    </tr>
-    <tr>
-      <td><pre>Packets received</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.commonZK.packetsReceived }}</center></pre></td>
+      <td>
+        <pre>Node Count</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.inMemory.nodeCount }}</center></pre>
+      </td>
     </tr>
     <tr>
-      <td><pre>Tick Time</pre></td>
-      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data"><pre><center>{{ zookeeperJMX.commonZK.tickTime }}</center></pre></td>
+      <td>
+        <pre>Watch Count</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.inMemory.watchCount }}</center></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+        <pre>Alive Connections</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.commonZK.numAliveConnections }}</center></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre>Max Request Latency</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.commonZK.maxRequestLatency }}</center></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre>Client Port</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.commonZK.clientPort }}</center></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>
+        <pre>Packets sent</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.commonZK.packetsSent }}</center></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre>Packets received</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.commonZK.packetsReceived }}</center></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <pre>Tick Time</pre>
+      </td>
+      <td ng-repeat="zookeeperJMX in allZookeeperJMX.data">
+        <pre><center>{{ zookeeperJMX.commonZK.tickTime }}</center></pre>
+      </td>
     </tr>
     </tbody>
   </table>
 
-
+  <!-- View 3 -->
   <div ng-repeat="zookeeperJMX in allZookeeperJMX.data">
     <p><b>Zookeeper - {{ zookeeperJMX.replicaZK.name }} </b></p>
 
@@ -99,7 +204,7 @@
     <pre>Open File Descriptors : {{ zookeeperJMX.osMetrics.openFileDescriptorCount }}</pre>
     <pre>Max File Descriptors  : {{ zookeeperJMX.osMetrics.maxFileDescriptorCount }}</pre>
     <pre>Packet Sent           : {{ zookeeperJMX.commonZK.packetsSent }}</pre>
-    <pre>Version               : {{ zookeeperJMX.commonZK.version }}</pre>
+    <pre>Version               : {{ zookeeperJMX.commonZK.version.substring(0,18) }}</pre>
     <pre>Uptime                : {{ zookeeperJMX.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}</pre>
     <br>
     <pre>Last Zxid             : {{ zookeeperJMX.inMemory.lastZxid }}</pre>
@@ -113,9 +218,13 @@
     <pre>Packets received      : {{ zookeeperJMX.commonZK.packetsReceived }}</pre>
     <pre>Tick time             : {{ zookeeperJMX.commonZK.tickTime }}</pre>
   </div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</md-content>
 
+<md-content ng-show="selectedMenuItem == 'data'" style="padding-left:15px">
 
-  <!--<json-tree object='{ "schema_registry":{ "schema_registry_master" : "{\"host\":\"e3d65ff7dcdf\",\"port\":8081,\"master_eligibility\":true,\"version\":1}","schema_id_counter":20}}' root-name="'schema_registry'" style="max-width: 100%;"></json-tree><br>-->
+  <h3>Zookeeper Data</h3>
+
   <json-tree object='{
 	"schema_registry": {
 		"schema_registry_master": "{\"host\":\"e3d65ff7dcdf\",\"port\":8081,\"master_eligibility\":true,\"version\":1}",
@@ -221,25 +330,11 @@
 			}
 		}
 	}
-}' root-name="'/'" style="max-width: 100%;"></json-tree>
-  <br>
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'cluster'" style="max-width: 100%;"></json-tree><br>-->
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'controller'" style="max-width: 100%;"></json-tree><br>-->
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'controller_epoch'" style="max-width: 100%;"></json-tree><br>-->
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'brokers'" style="max-width: 100%;"></json-tree><br>-->
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'zookeeper'" style="max-width: 100%;"></json-tree><br>-->
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'admin'" style="max-width: 100%;"></json-tree><br>-->
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'isr_change_notification'" style="max-width: 100%;"></json-tree><br>-->
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'consumers'" style="max-width: 100%;"></json-tree><br>-->
-  <!--<json-tree object="{ 'hi' : 'true' }" root-name="'config'" style="max-width: 100%;"></json-tree><br>-->
+}' root-name="'/'" style="max-width: 100%;" start-expanded="true"></json-tree>
 
-  Buffer(schema_registry, cluster, controller, controller_epoch, brokers, zookeeper, admin, isr_change_notification,
-  consumers, config)
-  Buffer(schema_registry_master, schema_id_counter)
-  Buffer()
-  Buffer()
+</md-content>
 
-  20
+<md-content ng-show="selectedMenuItem == 'alerts'" style="padding-left:15px">
 
   <!-- Section HEALTH-CHECKS across all (?) Zookeepers -->
   <table class="topics-table" style="width:400px">
@@ -267,9 +362,20 @@
     </tr>
     </tbody>
   </table>
-
-  <!--Debug-> allZookeeperJMX = {{ allZookeeperJMX }}-->
-
 </md-content>
 
+<!--Debug-> allZookeeperJMX = {{ allZookeeperJMX }}-->
+
 <br>
+
+<!--<json-tree object="schema-registry" root-name="'schema-registry'" style="max-width: 100%;" ></json-tree>-->
+
+<!--<json-tree object="{  }" root-name="''" style="max-width: 100%;"></json-tree><br>-->
+<!--<json-tree object="{ 'hi' : 'true' }" root-name="'controller'" style="max-width: 100%;"></json-tree><br>-->
+<!--<json-tree object="{ 'hi' : 'true' }" root-name="'controller_epoch'" style="max-width: 100%;"></json-tree><br>-->
+<!--<json-tree object="{ 'hi' : 'true' }" root-name="'brokers'" style="max-width: 100%;"></json-tree><br>-->
+<!--<json-tree object="{ 'hi' : 'true' }" root-name="'zookeeper'" style="max-width: 100%;"></json-tree><br>-->
+<!--<json-tree object="{ 'hi' : 'true' }" root-name="'admin'" style="max-width: 100%;"></json-tree><br>-->
+<!--<json-tree object="{ 'hi' : 'true' }" root-name="'isr_change_notification'" style="max-width: 100%;"></json-tree><br>-->
+<!--<json-tree object="{ 'hi' : 'true' }" root-name="'consumers'" style="max-width: 100%;"></json-tree><br>-->
+<!--<json-tree object="{ 'hi' : 'true' }" root-name="'config'" style="max-width: 100%;"></json-tree><br>-->

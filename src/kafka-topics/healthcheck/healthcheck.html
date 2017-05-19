@@ -1,23 +1,62 @@
-
-<md-card style="margin:17px 17px 0 0;box-shadow:none;word-wrap: break-word;" layout="row" ng-repeat="cluster in allClusters">
-    <md-card-content>
-            <div style="margin: 0px 0px 12px;font-weight: 500; text-transform: uppercase; font-size: 14px;">{{cluster.NAME}}</div>
-            <div layout="row" layout-align="left center">
-                <div style="margin-right:10px">
-                    <i class="fa fa-check-circle-o" aria-hidden="true" ng-if="cluster.isOk" style="color:green;font-size:50px"></i>
-                    <i class="fa fa-times-circle-o" aria-hidden="true" ng-if="!cluster.isOk" style="color:red;font-size:50px"></i>
-                </div>
-                <div flex>
-                    <span style="color:green; font-size:30px" ng-if="!cluster.isOk" style="font-family:Roboto,'Helvetica Neue',sans-serif">Something went wrong</span>
-                    <p><b>ENDPOINT</b><br>{{cluster.KAFKA_LENSES_URL}}</p>
-                </div>
-            </div>
-    </md-card-content>
-
+<!--Brokers -->
+<md-card style="box-shadow:none; margin-top:15px" layout="column">
+  <md-content flex layout-padding>
+    <div>
+      <h4 style="margin-top: 0;margin-bottom: 10px;">Brokers</h4>
+      <div ng-repeat="b in brokersJMX">
+        {{b.host}}:{{b.port}} <br>
+      </div>
+    </div>
+  </md-content>
 </md-card>
 
+<!--Zookeepers -->
+<md-card style="box-shadow:none; margin-top:15px">
+  <md-content flex layout-padding>
+    <div>
+      <h4 style="margin-top: 0;margin-bottom: 10px;">Zookeepers</h4>
+      <div ng-repeat="b in zookeeperJMX">
+        {{b.host}}:{{b.port}} <br>
+      </div>
+    </div>
+  </md-content>
+</md-card>
+
+<!--Connect -->
+<md-card style="box-shadow:none; margin-top:15px">
+  <md-content flex layout-padding>
+    <div>
+      <h4 style="margin-top: 0;margin-bottom: 10px;">Connect</h4>
+      <div ng-repeat="b in connectJMX">
+        {{b.host}}:{{b.port}} <br>
+      </div>
+    </div>
+  </md-content>
+</md-card>
+
+
+<md-card style="margin:17px 17px 0 0;box-shadow:none;word-wrap: break-word;" layout="row"
+         ng-repeat="cluster in allClusters">
+  <md-card-content>
+    <div style="margin: 0px 0px 12px;font-weight: 500; text-transform: uppercase; font-size: 14px;">{{cluster.NAME}}
+    </div>
+    <div layout="row" layout-align="left center">
+      <div style="margin-right:10px">
+        <i class="fa fa-check-circle-o" aria-hidden="true" ng-if="cluster.isOk" style="color:green;font-size:50px"></i>
+        <i class="fa fa-times-circle-o" aria-hidden="true" ng-if="!cluster.isOk" style="color:red;font-size:50px"></i>
+      </div>
+      <div flex>
+        <span style="color:green; font-size:30px" ng-if="!cluster.isOk"
+              style="font-family:Roboto,'Helvetica Neue',sans-serif">Something went wrong</span>
+        <p><b>ENDPOINT</b><br>{{cluster.KAFKA_LENSES_URL}}</p>
+      </div>
+    </div>
+  </md-card-content>
+</md-card>
+
+
 <!--2. VERSION -->
-<md-card style="box-shadow:none; margin-top:15px;" >
+<md-card style="box-shadow:none; margin-top:15px;">
   <md-content flex layout-padding>
     <div>
       <b style="font-weight: 500; text-transform: uppercase; font-size: 14px;">kafka-metrics-ui</b> v0.9.2

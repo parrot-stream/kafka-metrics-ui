@@ -8,6 +8,7 @@
           <img height=60 ng-src="src/assets/icons/kafka-connect.png" style="opacity: 0.81;filter: alpha(opacity=81);"/>
           <!--<i style="font-size:50px; font-weight:100; color: #9675ce; padding-top:10px" class="fa fa-hdd-o" aria-hidden="true"></i>-->
         </div>
+        {{allConnectJMX}}
         <div>
           Uptime : {{ allConnectJMX.runtimeMetrics.uptime | humanizeDuration:{ largest: 2,  units: ['d', 'h'], round : true } }}<br><br>
           <pre>Assigned Connectors   : {{ allConnectJMX.connectCoordinator.assignedConnectors }}</pre>

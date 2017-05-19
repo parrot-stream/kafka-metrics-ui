@@ -89,6 +89,10 @@ $locationProvider.html5Mode();
       templateUrl: 'src/kafka-topics/dashboard-components/zookeepers-dashboard/zookeepers-dashboard.html',
       controller: 'TotalZookeepersCtrl'
     })
+    .when('/cluster/:cluster/zookeepers/:menuItem', {
+      templateUrl: 'src/kafka-topics/dashboard-components/zookeepers-dashboard/zookeepers-dashboard.html',
+      controller: 'TotalZookeepersCtrl'
+    })
     .when('/cluster/:cluster/brokers', {
       templateUrl: 'src/kafka-topics/dashboard-components/brokers-dashboard/brokers-dashboard.html',
       controller: 'TotalBrokersCtrl'
@@ -130,7 +134,7 @@ angularAPP.run(['$route', '$rootScope', '$location', function ($route, $rootScop
         }
         return original.apply($location, [path]);
     };
-}])
+}]);
 
 // ng-show="x | isEmpty"
 angularAPP.filter('isEmpty', function () {
