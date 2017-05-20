@@ -74,7 +74,6 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
     function () { return $routeParams.topicName },
     function () { if(angular.isDefined($routeParams.topicName)) {
       $scope.topicName = $routeParams.topicName;
-      $scope.displayingControlTopics = checkIsControlTopic($scope.topicName);
     }
  },
    true);
@@ -89,8 +88,28 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
 
   ZookeepersBackendFactory.getZookeepersJMX(env.KAFKA_LENSES_URL()).then(
     function success(allZookeeperJMX) {
-      $scope.allZookeeperJMX = allZookeeperJMX;
-      $scope.htmlCode = "<pre>Zookeeper Process CPU : " + ZookeepersBackendFactory.print20(allZookeeperJMX.data[0].osMetrics.processCpuLoad * 100) + " %</pre>";
+      var aaa = [];
+      //console.log(allZookeeperJMX);
+      angular.forEach(allZookeeperJMX.data, function(a) {
+        $scope.selectedTopics = $scope.selectedTopics + a.replicaZK.name;
+        var topicImproved = {
+          topicName : a.replicaZK.name,
+          partitions : 2,
+          replication : 1,
+          isControlTopic : false,
+          isZKLeader : true,
+          isZKFollower : false
+        };
+        aaa.push(topicImproved);
+      });
+      $scope.selectedTopics = aaa;
+      $scope.topics = aaa;
+      $scope.topicsPage = 1
+
+      // $scope.allZookeeperJMX = allZookeeperJMX;
+      // angular.forEach(allZookeeperJMX.data, function(a) {
+      //   $scope.selectedTopics = $scope.selectedTopics + a.replicaZK.name;
+      // });
     },
     function failure() {
       $scope.connectionFailure = true;
@@ -111,21 +130,24 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
     return (topic.totalMessages / Math.pow(1000, i)).toFixed(i ? 1 : 0) + sizes[i];
   };
 
-  $scope.selectTopicList = function (displayingControlTopics) {
-    $scope.selectedTopics = $scope.topics.filter(function(el) {return el.isControlTopic === $scope.displayingControlTopics})
-  };
-
   var itemsPerPage = (window.innerHeight - 280) / 48;
   Math.floor(itemsPerPage) < 3 ? $scope.topicsPerPage =3 : $scope.topicsPerPage = Math.floor(itemsPerPage);
 
   $scope.listClick = function (topicName, isControlTopic) {
     var urlType = (isControlTopic === true) ? 'c' : 'n';
-    $location.path("cluster/" + $scope.cluster.NAME + "/topic/" + urlType + "/" + topicName, true);
+    $location.path("cluster/" + $scope.cluster.NAME + "/zookeepers/infrastructure" , true); // + topicName
   };
 
+  // $scope.selectedTopics = ["a", "b"] ; //$scope.topics.filter(function(el) {return el.isControlTopic === $scope.displayingControlTopics})
+  // $scope.topics = ["a", "b"] ; //$scope.topics.filter(function(el) {return el.isControlTopic === $scope.displayingControlTopics})
+
+
+
   function getLeftListTopics() {
-    $scope.selectedTopics = [];
-    $scope.topics = [];
+    // $scope.selectedTopics = [];
+    // $scope.topics.filter(function(el) {return el.isControlTopic === $scope.displayingControlTopics})
+
+    // $scope.topics = [ "topicName", "b"] ; //$scope.topics.filter(function(el) {return el.isControlTopic === $scope.displayingControlTopics})
     // TopicsListFactory.getTopics($scope.cluster.KAFKA_REST.trim()).then(function (allData){
     //     var topics = [];
     //     angular.forEach(allData.data, function(topic, key) {
@@ -187,20 +209,11 @@ function arrayObjectIndexOf(myArray, searchTerm, property) {
 
 
   function getDataType (topicName) {
-    return "a";
+    return "ZK";
   }
 
    $scope.getDataType = function (topicName) {
       return getDataType(topicName);
     };
-
-    function checkIsControlTopic(topicName) {
-      var isControlTopic = false;
-      angular.forEach(KNOWN_TOPICS.CONTROL_TOPICS, function (controlTopicPrefix) {
-        if (topicName.lastIndexOf(controlTopicPrefix, 0) === 0)
-          isControlTopic = true;
-      });
-      return isControlTopic;
-    }
 
 });

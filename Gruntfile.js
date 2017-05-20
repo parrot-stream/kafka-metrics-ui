@@ -58,7 +58,10 @@ module.exports = function (grunt) {
           'bower_components/handsontable/dist/handsontable.full.css',
           'bower_components/angularjs-slider/dist/rzslider.min.js',
           'bower_components/angular-base64/angular-base64.js',
-          'bower_components/angularjs-slider/dist/rzslider.css'
+          'bower_components/angularjs-slider/dist/rzslider.css',
+          'bower_components/mermaid/dist/mermaid.slim.js',
+          'bower_components/mermaid/dist/mermaid.css',
+          'bower_components/humanize-duration/dist/humanize-duration.js'
 
         ],
         dest: 'dist',
