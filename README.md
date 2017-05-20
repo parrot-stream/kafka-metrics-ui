@@ -13,6 +13,7 @@ View JMX metrics, and metadata and manage alerts on your Kafka (ZK, Schema Regis
     git clone https://github.com/Landoop/kafka-metrics-ui.git
     cd kafka-metrics-ui
     npm install -g bower
+    npm install
     bower install
     http-server .
 ```

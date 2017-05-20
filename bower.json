@@ -1,15 +1,15 @@
 {
-  "name": "kafka-topics-ui",
+  "name": "kafka-metrics-ui",
   "authors": [
     "Christina Daskalaki <christina@landoop.com>",
     "Antonios Chalkiopoulos <antonios@landoop.com>",
     "Marios Andreopoulos <marios@landoop.com>",
     "John Glampedakis <john@landoop.com>"
   ],
-  "description": "A user interface for reading data from Kafka Topics",
+  "description": "View JMX metrics, and metadata and manage alerts on your Kafka (ZK, Schema Registry, Kafka-Connect, Kafka-REST) cluster",
   "main": "index.html",
   "license": "http://landoop.com/bsl",
-  "homepage": "http://kafka-topics-ui.landoop.com",
+  "homepage": "http://kafka-metrics-ui.landoop.com",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -18,7 +18,7 @@
   "dependencies": {
     "angular": "^1.6.5",
     "angular-route": "1.6.4",
-    "angular-animate": "^1.6.5",
+    "angular-animate": "^1.6.4",
     "angular-aria": "1.5.9",
     "angular-ui-ace": "bower",
     "bootstrap": "^3.3.6",
@@ -33,12 +33,10 @@
     "angular-json-tree": "^1.0.1",
     "ngHandsontable": "0.13.0",
     "angular-base64": "^2.0.3",
-    "angularjs-humanize-duration": "^0.1.0"
+    "angularjs-humanize-duration": "^0.1.0",
+    "mermaid": "^7.0.0"
   },
   "resolutions": {
     "angular": "~1.6.4"
-  },
-  "devDependencies": {
-    "mermaid": "^7.0.0"
   }
 }
