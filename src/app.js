@@ -94,7 +94,7 @@ $locationProvider.html5Mode();
       controller: 'TotalZookeepersCtrl'
     })
     .when('/cluster/:cluster/brokers', {
-      templateUrl: 'src/kafka-topics/dashboard-components/brokers-dashboard/brokers-dashboard.html',
+      templateUrl: 'src/kafka-topics/dashboard-components/brokers/brokers-dashboard.html',
       controller: 'TotalBrokersCtrl'
     })
     .when('/cluster/:cluster/connect', {

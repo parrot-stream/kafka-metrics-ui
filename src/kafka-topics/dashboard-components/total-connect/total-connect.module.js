@@ -24,12 +24,10 @@ totalConnectModule.controller('TotalConnectCtrl', function ($scope, $log, $locat
 
   ConnectBackendFactory.getConnectJMX($scope.cluster.KAFKA_LENSES_URL).then(
     function success(allConnectJMX) {
-      console.log("1");
-      console.log(allConnectJMX);
+      //console.log(allConnectJMX);
       $scope.allConnectJMX = allConnectJMX.data;
     },
     function failure() {
-      console.log("2");
       $scope.connectionFailure = true;
     });
 

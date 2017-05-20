@@ -34,6 +34,18 @@
   </md-content>
 </md-card>
 
+<!-- Schema Registry -->
+<md-card style="box-shadow:none; margin-top:15px">
+  <md-content flex layout-padding>
+    <div>
+      <h4 style="margin-top: 0;margin-bottom: 10px;">Schema Registry</h4>
+      <div ng-repeat="b in schemaRegistryJMX">
+        {{b.host}}:{{b.port}} <br>
+      </div>
+    </div>
+  </md-content>
+</md-card>
+
 
 <md-card style="margin:17px 17px 0 0;box-shadow:none;word-wrap: break-word;" layout="row"
          ng-repeat="cluster in allClusters">

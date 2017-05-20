@@ -89,7 +89,6 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
   ZookeepersBackendFactory.getZookeepersJMX(env.KAFKA_LENSES_URL()).then(
     function success(allZookeeperJMX) {
       var aaa = [];
-      //console.log(allZookeeperJMX);
       angular.forEach(allZookeeperJMX.data, function(a) {
         $scope.selectedTopics = $scope.selectedTopics + a.replicaZK.name;
         var topicImproved = {
@@ -97,8 +96,8 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
           partitions : 2,
           replication : 1,
           isControlTopic : false,
-          isZKLeader : true,
-          isZKFollower : false
+          isZKLeader : (typeof a.leaderExtra !== "undefined"),
+          isZKFollower : ((typeof a.followerExtra !== "undefined"))
         };
         aaa.push(topicImproved);
       });
