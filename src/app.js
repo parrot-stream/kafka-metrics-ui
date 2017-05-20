@@ -23,6 +23,7 @@ var angularAPP = angular.module('angularAPP', [
   'totalBrokers',
   'totalZookeepers',
   'totalConnect',
+  'totalSchemas',
   'angular-humanize-duration'
 ]);
 
@@ -43,13 +44,13 @@ angularAPP.run(
 
        $rootScope.selectCluster = function(cluster) {
            $rootScope.connectionFailure = false;
-           $location.path("/cluster/"+cluster)
+           $location.path("/cluster/"+cluster);
            $rootScope.cluster = cluster;
        }
 
        //TODO Where to check connectivity and make it public for all components ?
     }
-)
+);
 
 angularAPP.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
     var original = $location.path;
@@ -96,6 +97,10 @@ $locationProvider.html5Mode();
     .when('/cluster/:cluster/brokers', {
       templateUrl: 'src/kafka-topics/dashboard-components/brokers/brokers-dashboard.html',
       controller: 'TotalBrokersCtrl'
+    })
+    .when('/cluster/:cluster/schemas', {
+      templateUrl: 'src/kafka-topics/dashboard-components/schemas-dashboard/schemas-dashboard.html',
+      controller: 'TotalSchemasCtrl'
     })
     .when('/cluster/:cluster/connect', {
       templateUrl: 'src/kafka-topics/dashboard-components/connect-dashboard/connect-dashboard.html',

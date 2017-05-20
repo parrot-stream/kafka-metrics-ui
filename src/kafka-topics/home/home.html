@@ -1,33 +1,8 @@
 <div flex>
 
-  <md-card style="margin-bottom:15px;margin-top:15px;box-shadow:none;">
-    <md-card-content ng-click="showBrokersDashboard();" style="padding:10px">
-      <div layout="column">
-        <div style="margin: 0 0 12px;font-weight: 500; text-transform: uppercase; font-size: 14px;">BROKERS</div>
-        <div layout="row">
-          <div flex="5" style="font-size: 50px; font-weight: 100;">{{ allBrokerJMX.data.length }}</div>
-          <div flex="5" style="margin-right:10px">
-            <img height=60 ng-src="src/assets/icons/kafka2.png" style="opacity: 0.71;filter: alpha(opacity=71);"/>
-            <!--<i style="font-size:50px; font-weight:100; color: #9675ce; padding-top:10px" class="fa fa-hdd-o" aria-hidden="true"></i>-->
-          </div>
-          <div flex="65" style="height: 80px;" class="mermaid">
-            graph LR
-            0 --- 1
-            1 --- 2
-            2 --- 3
-            3 --- 4
-          </div>
-          <div ng-repeat="brokerJMX in allBrokerJMX.data">
-            Version : {{ brokerJMX.brokerVersion }}<br><br>
-            <pre>{{ brokerJMX.size | humanizeBytes }} Data</pre>
-          </div>
-        </div>
-      </div>
-    </md-card-content>
-  </md-card>
-
   <total-brokers></total-brokers>
   <total-zookeepers></total-zookeepers>
+  <total-schemas></total-schemas>
   <total-connect></total-connect>
 
   <div layout="column">
