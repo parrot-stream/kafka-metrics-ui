@@ -61,6 +61,7 @@ module.exports = function (grunt) {
           'bower_components/angularjs-slider/dist/rzslider.css',
           'bower_components/mermaid/dist/mermaid.min.js',
           'bower_components/mermaid/dist/mermaid.css',
+          'bower_components/angularjs-humanize-duration/src/angular-humanize-duration.js',
           'bower_components/humanize-duration/humanize-duration.js'
 
         ],
