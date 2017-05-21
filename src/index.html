@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Kafka Metrics UI - View your Kafka Infrastructure</title>
+  <link rel="shortcut icon" href="assets/icons/favicon.png">
+  <meta charset=utf-8/>
+  <meta name="viewport" content="width=device-width">
+  <meta name="keywords" content="kafka, metrics, jmx, monitoring, alerting, schema registry,topics,kafka-topic,kafka-rest,kafka-rest-proxy,kafka management,avro">
+  <meta name="description" content="Kafka Topics UI">
+  <meta name="author" content="Landoop Team">
+  <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+  <!--<link rel="stylesheet" href="../bower_components/mermaid/dist/mermaid.css">-->
+</head>
+
+<body ng-app="angularAPP" ng-cloak>
+
+<header class="header" style="background:{{cluster.COLOR}}">
+  <div layout="row" layout-xs="column">
+    <div class="top-left-part">
+      <h5 style="margin: 0 0 0 18px;line-height: 48px;">
+        <a href="{{cluster ? '#/cluster/'+cluster.NAME : '#/'}}" style="color:#fff; text-decoration:none; font-weight: bold;">KAFKA METRICS</a>
+      </h5>
+    </div>
+    <span flex></span>
+    <div layout="row">
+      <div ng-include="'select-cluster.html'"></div>
+      <a ng-href="#/healthcheck" class="md-button"> <i class="fa fa-cog" aria-hidden="true"></i> </a>
+    </div>
+  </div>
+</header>
+
+<!--if env.js is not properly defined-->
+<div layout="row" flex="100" ng-show="missingEnvJS" ng-cloak>
+  <div ng-include="'missing.html'"></div>
+</div>
+
+<!--Main Content here-->
+<div layout-no-margin layout="row" layout-sm="column">
+
+
+  <div flex="33" flex-sm="100" style="margin:16px" ng-show="showList">
+    <topics-list mode="home" cluster="{{cluster}}"></topics-list>
+    <div layout-margin flex>
+      <div flex="nogrow">
+        <img ng-src="src/assets/icons/landoop-dark.svg" style="width:20px;float: left;padding-right:5px;"></div>
+      <div flex>
+        <p class="md-caption">Powered by <a href="http://www.landoop.com/" target="_blank">Landoop</a></p>
+      </div>
+    </div>
+  </div>
+  <ng-view flex style="margin:0" ng-hide="missingEnvJS"></ng-view>
+
+</div>
+
+
+<!--CUSTOM-FOOTER-->
+
+<!-- analytics -->
+
+<!--<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
+<!--
+<script src="../env.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+<!-- build:js combined.js -->
+
+<!--<script>mermaid.initialize({startOnLoad:true});</script>-->
+
+<!-- endbuild -->
+
+</body>
+
+</html>

@@ -76,7 +76,7 @@ a:link, header.a:visited, header.a:hover, header.a:active {
     z-index: 2;
 }
 .normalcontent.ng-scope {
-    overflow:initial}
+    overflow:initial
 }
 
 .leftlistPagination .pagination {
@@ -325,7 +325,7 @@ table tbody tr { border-top: 1px rgba(0,0,0,.12) solid; }
 
 .flat-table tr td {border:1px #ccc solid;}
 .flat-table tr th {border:1px #ccc solid;}
-.blue {background-color:#dcedf7};
+.blue {background-color:#dcedf7}
 
 
 .md-tabs

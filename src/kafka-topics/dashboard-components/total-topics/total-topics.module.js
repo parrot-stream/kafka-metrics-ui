@@ -17,7 +17,7 @@ totalTopicsModule.factory('TopicsCountBackendFactory', function (HttpFactory) {
     }
 });
 
-totalTopicsModule.controller('TotalTopicsCtrl', function ($scope, TopicsCountBackendFactory, env) {
+totalTopicsModule.controller('TotalTopicsCtrl', function ($scope, TopicsCountBackendFactory) {
     // TopicsCountBackendFactory.getTopics(env.KAFKA_REST()).then(function(data) {
     //   $scope.totalTopics = data.data.length
     // })

@@ -28,7 +28,7 @@ totalZookeepersModule.factory('ZookeepersBackendFactory', function (HttpFactory)
   }
 });
 
-totalZookeepersModule.controller('TotalZookeepersCtrl', function ($scope, $log, $location, $routeParams, ZookeepersBackendFactory, $sce, env) {
+totalZookeepersModule.controller('TotalZookeepersCtrl', function ($scope, $log, $location, $routeParams, ZookeepersBackendFactory, $sce) {
   $scope.showZookeepersDashboard = function () {
     var newPath = "cluster/" + $scope.cluster.NAME + "/zookeepers";
     $location.path(newPath, true);

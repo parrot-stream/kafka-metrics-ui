@@ -62,7 +62,7 @@ topicsListModule.factory('shortList', function (HttpFactory) {
   }
 });
 
-topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, $rootScope, $routeParams, $cookies, $filter, $log, $q, $http, TopicsListFactory, ZookeepersBackendFactory, shortList, env) {
+topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, $rootScope, $routeParams, $cookies, $filter, $log, $q, $http, TopicsListFactory, ZookeepersBackendFactory, shortList) {
   $rootScope.showList = true;
 
   $scope.topic = $routeParams.topicName;
@@ -86,41 +86,41 @@ topicsListModule.controller('KafkaTopicsListCtrl', function ($scope, $location, 
     } },
    true);
 
-  ZookeepersBackendFactory.getZookeepersJMX(env.KAFKA_LENSES_URL()).then(
-    function success(allZookeeperJMX) {
-      var aaa = [];
-      angular.forEach(allZookeeperJMX.data, function(a) {
-        $scope.selectedTopics = $scope.selectedTopics + a.replicaZK.name;
-        var topicImproved = {
-          topicName : a.replicaZK.name,
-          partitions : 2,
-          replication : 1,
-          isControlTopic : false,
-          isZKLeader : (typeof a.leaderExtra !== "undefined"),
-          isZKFollower : ((typeof a.followerExtra !== "undefined"))
-        };
-        aaa.push(topicImproved);
-      });
-      $scope.selectedTopics = aaa;
-      $scope.topics = aaa;
-      $scope.topicsPage = 1
-
-      // $scope.allZookeeperJMX = allZookeeperJMX;
-      // angular.forEach(allZookeeperJMX.data, function(a) {
-      //   $scope.selectedTopics = $scope.selectedTopics + a.replicaZK.name;
-      // });
-    },
-    function failure() {
-      $scope.connectionFailure = true;
-    });
-
-
-  $scope.query = { order: '-totalMessages', limit: 100, page: 1 };
-
-  // This one is called each time - the user clicks on an md-table header (applies sorting)
-  $scope.logOrder = function (a) {
-      sortTopics(a);
-  };
+  // ZookeepersBackendFactory.getZookeepersJMX(env.KAFKA_LENSES_URL()).then(
+  //   function success(allZookeeperJMX) {
+  //     var aaa = [];
+  //     angular.forEach(allZookeeperJMX.data, function(a) {
+  //       $scope.selectedTopics = $scope.selectedTopics + a.replicaZK.name;
+  //       var topicImproved = {
+  //         topicName : a.replicaZK.name,
+  //         partitions : 2,
+  //         replication : 1,
+  //         isControlTopic : false,
+  //         isZKLeader : (typeof a.leaderExtra !== "undefined"),
+  //         isZKFollower : ((typeof a.followerExtra !== "undefined"))
+  //       };
+  //       aaa.push(topicImproved);
+  //     });
+  //     $scope.selectedTopics = aaa;
+  //     $scope.topics = aaa;
+  //     $scope.topicsPage = 1
+  //
+  //     // $scope.allZookeeperJMX = allZookeeperJMX;
+  //     // angular.forEach(allZookeeperJMX.data, function(a) {
+  //     //   $scope.selectedTopics = $scope.selectedTopics + a.replicaZK.name;
+  //     // });
+  //   },
+  //   function failure() {
+  //     $scope.connectionFailure = true;
+  //   });
+  //
+  //
+  // $scope.query = { order: '-totalMessages', limit: 100, page: 1 };
+  //
+  // // This one is called each time - the user clicks on an md-table header (applies sorting)
+  // $scope.logOrder = function (a) {
+  //     sortTopics(a);
+  // };
 
   $scope.totalMessages = function (topic) {
     if(topic.totalMessages === 0) return '0';
